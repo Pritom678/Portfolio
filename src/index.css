@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @theme {
   --color-background: #0f1419;
@@ -48,7 +47,7 @@
 
 body {
   min-height: 100vh;
-  
+
   background: #0f1419 !important;
 }
 
@@ -348,9 +347,13 @@ html {
 
 /* Background patterns */
 .bg-grid-pattern {
-  background-image: linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-image: linear-gradient(
+      rgba(0, 217, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
 }
 
 /* Scrollbar styling */
@@ -369,6 +372,18 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #00a8cc;
+}
+
+/* Contact icon centering */
+.contact-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.contact-icon svg {
+  display: block;
+  margin: auto;
 }
 
 /* Selection styling */
