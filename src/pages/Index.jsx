@@ -13,8 +13,8 @@ const Index = () => {
       style={{ backgroundColor: "#0f1419", color: "#f0f0f0" }}
     >
       <Navbar />
-      <main className="container mx-auto">
-        <Hero />
+      <Hero />
+      <main className="">
         <About />
         <Skills />
         <Projects />

@@ -145,119 +145,122 @@ const Hero = () => {
   );
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden "
-    >
-      {/* FULL WIDTH GRID BACKGROUND */}
-      <div className="absolute inset-0 bg-grid-pattern" />
+    <>
+      <div className="absolute h-[140vh] inset-0 bg-grid-pattern" />
 
-      {/* Radial light overlays */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,217,255,0.1)_0%,transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,168,204,0.05)_0%,transparent_50%)]" />
-
-      {/* Floating Particles */}
-      <div ref={particlesRef}>
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-primary/30" />
-        <div className="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-primary/20" />
-        <div className="absolute bottom-1/4 right-1/4 w-2 h-2 rounded-full bg-primary/25" />
-      </div>
-
-      {/* Hero Content Container */}
-      <div
-        ref={heroRef}
-        className="w-screen h-full min-h-[90vh] relative rounded-2xl overflow-hidden"
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden "
       >
-        <div className="relative z-10 h-full flex items-center px-8 py-20">
-          <div className="w-full flex flex-col xl:flex-row items-center justify-between gap-16 xl:gap-20">
-            {/* Text Content */}
-            <div
-              ref={textRef}
-              className="flex-1 text-center xl:text-left space-y-8 max-w-2xl xl:max-w-none"
-            >
-              <div className="inline-block px-6 py-3 rounded-full border border-primary/30 bg-primary/5">
-                <span className="text-primary text-sm font-medium">
-                  👋 Welcome to my portfolio
-                </span>
-              </div>
+        {/* FULL WIDTH GRID BACKGROUND */}
 
-              <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight">
-                Hi, I'm <span className="text-gradient">Pritom Das</span>
-              </h1>
+        {/* Radial light overlays */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,217,255,0.1)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,168,204,0.05)_0%,transparent_50%)]" />
 
-              <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold text-muted-foreground">
-                MERN Stack Developer
-              </h2>
+        {/* Floating Particles */}
+        <div ref={particlesRef}>
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-primary/30" />
+          <div className="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-primary/20" />
+          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 rounded-full bg-primary/25" />
+        </div>
 
-              <p className="text-xl xl:text-2xl text-muted-foreground max-w-3xl mx-auto xl:mx-0 leading-relaxed">
-                Crafting scalable, user-centric web applications with modern
-                technologies. Passionate about clean code, intuitive design, and
-                delivering exceptional digital experiences.
-              </p>
-
+        {/* Hero Content Container */}
+        <div
+          ref={heroRef}
+          className="w-screen mx-auto h-full min-h-[90vh] relative rounded-2xl overflow-hidden"
+        >
+          <div className="relative z-10 h-full flex items-center px-8 py-20">
+            <div className="w-full mx-20 flex flex-col xl:flex-row items-center justify-between gap-16 xl:gap-20">
+              {/* Text Content */}
               <div
-                ref={ctaRef}
-                className="flex flex-col sm:flex-row items-center xl:items-start gap-6 pt-4"
+                ref={textRef}
+                className="flex-1 text-center xl:text-left space-y-8 max-w-2xl xl:max-w-none"
               >
-                <Button
-                  size="lg"
-                  className="bg-gradient-primary hover:opacity-90 text-primary-foreground glow-primary transition-all duration-300 gap-2 hover-lift px-8 py-4 text-lg"
+                <div className="inline-block px-6 py-3 rounded-full border border-primary/30 bg-primary/5">
+                  <span className="text-primary text-sm font-medium">
+                    👋 Welcome to my portfolio
+                  </span>
+                </div>
+
+                <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight">
+                  Hi, I'm <span className="text-gradient">Pritom Das</span>
+                </h1>
+
+                <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold text-muted-foreground">
+                  MERN Stack Developer
+                </h2>
+
+                <p className="text-xl xl:text-2xl text-muted-foreground max-w-3xl mx-auto xl:mx-0 leading-relaxed">
+                  Crafting scalable, user-centric web applications with modern
+                  technologies. Passionate about clean code, intuitive design,
+                  and delivering exceptional digital experiences.
+                </p>
+
+                <div
+                  ref={ctaRef}
+                  className="flex flex-col sm:flex-row items-center xl:items-start gap-6 pt-4"
                 >
-                  <Download className="h-6 w-6" />
-                  Download Resume
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-primary hover:opacity-90 text-primary-foreground glow-primary transition-all duration-300 gap-2 hover-lift px-8 py-4 text-lg"
+                  >
+                    <Download className="h-6 w-6" />
+                    Download Resume
+                  </Button>
 
-                <div className="flex items-center gap-4">
-                  <a
-                    href="https://github.com/Pritom678"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
-                  >
-                    <GitHubIcon className="h-6 w-6" />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/pritom1722002"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
-                  >
-                    <LinkedInIcon className="h-6 w-6" />
-                  </a>
+                  <div className="flex items-center gap-4">
+                    <a
+                      href="https://github.com/Pritom678"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
+                    >
+                      <GitHubIcon className="h-6 w-6" />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/pritom1722002"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
+                    >
+                      <LinkedInIcon className="h-6 w-6" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile Image */}
+              <div
+                ref={imageRef}
+                className="flex-1 flex justify-center xl:justify-end"
+              >
+                <div className="relative">
+                  <div className="glow-effect absolute inset-0 rounded-full bg-gradient-primary blur-3xl opacity-30 scale-110" />
+
+                  <div className="relative w-80 h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary/30 glow-primary bg-muted flex items-center justify-center hover-lift">
+                    <img
+                      src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1767634713/profile_wnzqr0.jpg"
+                      alt="Pritom Das"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="absolute -inset-6 rounded-full border border-primary/20" />
                 </div>
               </div>
             </div>
 
-            {/* Profile Image */}
-            <div
-              ref={imageRef}
-              className="flex-1 flex justify-center xl:justify-end"
-            >
-              <div className="relative">
-                <div className="glow-effect absolute inset-0 rounded-full bg-gradient-primary blur-3xl opacity-30 scale-110" />
-
-                <div className="relative w-80 h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary/30 glow-primary bg-muted flex items-center justify-center hover-lift">
-                  <img
-                    src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1767634713/profile_wnzqr0.jpg"
-                    alt="Pritom Das"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="absolute -inset-6 rounded-full border border-primary/20" />
-              </div>
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+              <span className="text-xs text-muted-foreground uppercase tracking-widest">
+                Scroll
+              </span>
+              <ChevronDown className="h-5 w-5 text-primary animate-bounce" />
             </div>
-          </div>
-
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-            <span className="text-xs text-muted-foreground uppercase tracking-widest">
-              Scroll
-            </span>
-            <ChevronDown className="h-5 w-5 text-primary animate-bounce" />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
