@@ -30,7 +30,7 @@ const Hero = () => {
           rotationY: 0,
           duration: 1.2,
           ease: "power3.out",
-        }
+        },
       );
 
       tl.fromTo(
@@ -49,7 +49,7 @@ const Hero = () => {
           stagger: 0.2,
           ease: "back.out(1.7)",
         },
-        "-=0.5"
+        "-=0.5",
       );
 
       tl.fromTo(
@@ -66,7 +66,7 @@ const Hero = () => {
           duration: 1,
           ease: "elastic.out(1, 0.5)",
         },
-        "-=0.8"
+        "-=0.8",
       );
 
       gsap.set(particlesRef.current.children, {
@@ -83,7 +83,7 @@ const Hero = () => {
           stagger: 0.1,
           ease: "power2.out",
         },
-        "-=0.5"
+        "-=0.5",
       );
 
       tl.fromTo(
@@ -101,7 +101,7 @@ const Hero = () => {
           stagger: 0.1,
           ease: "power3.out",
         },
-        "-=0.3"
+        "-=0.3",
       );
 
       gsap.to(particlesRef.current.children[0], {
@@ -141,7 +141,7 @@ const Hero = () => {
         ease: "sine.inOut",
       });
     },
-    { scope: heroRef }
+    { scope: heroRef },
   );
 
   return (
@@ -202,11 +202,14 @@ const Hero = () => {
                   className="flex flex-col sm:flex-row items-center xl:items-start gap-6 pt-4"
                 >
                   <Button
+                    asChild
                     size="lg"
                     className="bg-gradient-primary hover:opacity-90 text-primary-foreground glow-primary transition-all duration-300 gap-2 hover-lift px-8 py-4 text-lg"
                   >
-                    <Download className="h-6 w-6" />
-                    Download Resume
+                    <a href="/pritom (2).pdf" download="Pritom_Das_Resume.pdf">
+                      <Download className="h-6 w-6" />
+                      Download Resume
+                    </a>
                   </Button>
 
                   <div className="flex items-center gap-4">

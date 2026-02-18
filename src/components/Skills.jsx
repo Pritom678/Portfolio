@@ -6,13 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: "React", level: 90, category: "Frontend" },
-  { name: "Next.js", level: 80, category: "Frontend" },
-  { name: "Node.js", level: 85, category: "Backend" },
-  { name: "Express.js", level: 85, category: "Backend" },
-  { name: "MongoDB", level: 80, category: "Database" },
-  { name: "Tailwind CSS", level: 90, category: "Frontend" },
-  { name: "JavaScript", level: 90, category: "Language" },
+  { name: "React", category: "Frontend" },
+  { name: "Next.js", category: "Frontend" },
+  { name: "Node.js", category: "Backend" },
+  { name: "Express.js", category: "Backend" },
+  { name: "MongoDB", category: "Database" },
+  { name: "Tailwind CSS", category: "Frontend" },
+  { name: "JavaScript", category: "Language" },
+  { name: "TypeScript", category: "Language" },
 ];
 
 const categories = ["All", "Frontend", "Backend", "Database", "Language"];
@@ -51,7 +52,7 @@ const Skills = () => {
             duration: 1,
             ease: "power3.out",
           },
-          "-=0.6"
+          "-=0.6",
         );
 
       // Filter buttons animation
@@ -74,7 +75,7 @@ const Skills = () => {
             start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       // Skills grid animation
@@ -96,27 +97,8 @@ const Skills = () => {
             duration: 1,
             ease: "power3.out",
             stagger: 0.15,
-          }
+          },
         );
-
-        // Animate skill bars
-        Array.from(cards).forEach((card, index) => {
-          const skillBar = card.querySelector(".skill-bar-fill");
-          const percentage = skillBar?.dataset.percentage || "0%";
-
-          gsap.fromTo(
-            skillBar,
-            {
-              width: "0%",
-            },
-            {
-              width: percentage,
-              duration: 1.5,
-              ease: "power2.out",
-              delay: 0.3 + index * 0.1,
-            }
-          );
-        });
       };
 
       // Initial animation
@@ -146,7 +128,7 @@ const Skills = () => {
             start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       // Hover animations for skill cards
@@ -183,7 +165,7 @@ const Skills = () => {
         });
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   // Re-animate when category changes
@@ -205,29 +187,10 @@ const Skills = () => {
           duration: 0.5,
           ease: "power2.out",
           stagger: 0.1,
-        }
+        },
       );
-
-      // Re-animate skill bars
-      Array.from(cards).forEach((card, index) => {
-        const skillBar = card.querySelector(".skill-bar-fill");
-        const percentage = skillBar?.dataset.percentage || "0%";
-
-        gsap.fromTo(
-          skillBar,
-          {
-            width: "0%",
-          },
-          {
-            width: percentage,
-            duration: 1,
-            ease: "power2.out",
-            delay: 0.2 + index * 0.05,
-          }
-        );
-      });
     },
-    { dependencies: [activeCategory], scope: skillsGridRef }
+    { dependencies: [activeCategory], scope: skillsGridRef },
   );
 
   const filteredSkills =
@@ -280,24 +243,11 @@ const Skills = () => {
               key={skill.name}
               className="glass-card p-8 mt-5 rounded-xl hover:border-primary/30 transition-all duration-300"
             >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-foreground text-lg">
-                  {skill.name}
-                </h3>
-                <span className="text-primary font-mono text-base">
-                  {skill.level}%
-                </span>
-              </div>
+              <h3 className="font-semibold text-foreground text-lg mb-3">
+                {skill.name}
+              </h3>
 
-              <div className="skill-bar">
-                <div
-                  className="skill-bar-fill"
-                  data-percentage={`${skill.level}%`}
-                  style={{ width: "0%" }}
-                />
-              </div>
-
-              <span className="text-sm text-muted-foreground mt-3 inline-block">
+              <span className="text-sm text-muted-foreground inline-block">
                 {skill.category}
               </span>
             </div>

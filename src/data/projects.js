@@ -6,7 +6,7 @@ export const projects = [
       "A real-world care service booking platform that connects families with verified caregivers. Users can book in-home services for children, elderly individuals, and general home care, manage bookings, and track service history with an emphasis on trust, safety, and compassion.",
     image:
       "https://res.cloudinary.com/do3iu9q7d/image/upload/v1766650849/Screenshot_2025-12-25_142016_be74ic.png",
-    techStack: ["Next.js", "NextAuth.js", "MongoDB", "Tailwind CSS","GSAP"],
+    techStack: ["Next.js", "NextAuth.js", "MongoDB", "Tailwind CSS", "GSAP"],
     liveLink: "https://carexyz-ten.vercel.app/",
     githubLink: "https://github.com/Pritom678/Care.xyz",
     futureImprovements:
@@ -18,7 +18,7 @@ export const projects = [
     description:
       "A full-stack MERN application that streamlines loan applications, approvals, repayments, and administrative operations with specialized dashboards for borrowers, managers, and admins.",
     image:
-      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1767627943/Screenshot_2025-12-11_225648_rrlbyn.png",
+      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1771430527/Screenshot_2026-01-13_140200_oncbzt.png",
     techStack: ["React", "Node.js", "Express.js", "MongoDB", "TanStack Query"],
     liveLink: "https://loanlinkph.netlify.app/",
     githubLink: "https://github.com/Pritom678/loan-link",
@@ -27,23 +27,23 @@ export const projects = [
   },
   {
     id: 3,
-    name: "FinEase",
+    name: "AudioPulse",
     description:
-      "A full-stack personal finance management application designed to help users take control of their money effortlessly. Users can log incomes and expenses, categorize transactions, and visualize their financial habits with intuitive dashboards featuring interactive charts, summaries, and insights.",
+      "A production-ready, full-stack e-commerce platform engineered with scalability and performance at its core. Built using TypeScript across the entire stack, this project reflects my commitment to writing clean, maintainable, and strongly typed code. From secure authentication and dynamic cart functionality to admin management and performance optimization, every feature was designed with real-world application architecture in mind.",
     image:
-      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1767628157/FinEase1_ipghep.png",
+      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1771430923/Screenshot_2026-02-18_220823_tlc6df.png",
     techStack: [
       "React",
-      "Chart.js",
-      "Tailwind CSS",
+      "Next.js",
+      "TypeScript",
       "Node.js",
+      "Mongoose",
       "Express.js",
-      "MongoDB",
-      "Firebase Auth",
+      "GSAP",
     ],
-    liveLink: "https://boisterous-pavlova-194228.netlify.app/",
-    githubLink: "https://github.com/Pritom678/finEase-client",
+    liveLink: "https://audiopluse.vercel.app/",
+    githubLink: "https://github.com/Pritom678/audioPulse",
     futureImprovements:
-      "Implementing AI-powered professional advice based on user's current financial condition.",
+      "Planning to implement a real-world payment method for seamless transactions.",
   },
 ];
