@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "../ui/button";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -16,208 +15,178 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
-  const logoRef = useRef(null);
-  const navLinksRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useGSAP(
-    () => {
-      // Simple initial animation
-      const tl = gsap.timeline();
+  // Entrance animation
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // Animate navbar entrance
-      tl.fromTo(
-        navRef.current,
-        {
-          y: -100,
-        },
-        {
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-        }
-      )
-        // Animate logo with simple scale - ensure it ends at opacity 1
-        .fromTo(
-          logoRef.current,
-          {
-            scale: 0.5,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-          },
-          "-=0.5"
-        )
-        // Animate nav links
-        .fromTo(
-          navLinksRef.current?.children || [],
-          {
-            y: -20,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power2.out",
-          },
-          "-=0.4"
-        );
+    tl.fromTo(
+      ".anim-nav-bar",
+      { y: -60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8 }
+    );
 
-      // Simple hover effects for logo
-      if (logoRef.current) {
-        logoRef.current.addEventListener("mouseenter", () => {
-          gsap.to(logoRef.current, {
-            scale: 1.1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
+    tl.fromTo(
+      ".anim-nav-logo",
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.6 },
+      "-=0.4"
+    );
 
-        logoRef.current.addEventListener("mouseleave", () => {
-          gsap.to(logoRef.current, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-      }
-    },
-    { scope: navRef }
-  );
+    tl.fromTo(
+      ".anim-nav-link",
+      { y: -15, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 },
+      "-=0.3"
+    );
 
-  // Separate useGSAP for scroll-based animations
-  useGSAP(
-    () => {
-      // Navbar background animation on scroll
-      gsap.to(navRef.current, {
-        backgroundColor: scrolled ? "rgba(15, 20, 25, 0.8)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    },
-    { dependencies: [scrolled], scope: navRef }
-  );
+    tl.fromTo(
+      ".anim-nav-cta",
+      { opacity: 0, x: 20 },
+      { opacity: 1, x: 0, duration: 0.5 },
+      "-=0.4"
+    );
+
+    // Underline hover on each nav link
+    document.querySelectorAll(".anim-nav-link").forEach((link) => {
+      const line = link.querySelector(".nav-underline");
+      link.addEventListener("mouseenter", () =>
+        gsap.to(line, { scaleX: 1, duration: 0.25, ease: "power2.out" })
+      );
+      link.addEventListener("mouseleave", () =>
+        gsap.to(line, { scaleX: 0, duration: 0.2, ease: "power2.in" })
+      );
+    });
+  }, { scope: navRef });
+
+  // Scroll-based border
+  useGSAP(() => {
+    gsap.to(".anim-nav-bar", {
+      borderBottomColor: scrolled ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0)",
+      backdropFilter: scrolled ? "blur(16px)" : "blur(0px)",
+      backgroundColor: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0)",
+      duration: 0.35,
+      ease: "power2.out",
+    });
+  }, { dependencies: [scrolled], scope: navRef });
 
   // Mobile menu animation
-  useGSAP(
-    () => {
-      if (isOpen && mobileMenuRef.current) {
-        gsap.fromTo(
-          mobileMenuRef.current,
-          {
-            opacity: 0,
-            y: -20,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          }
-        );
-
-        gsap.fromTo(
-          mobileMenuRef.current.querySelectorAll("li"),
-          {
-            x: -30,
-            opacity: 0,
-          },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.4,
-            stagger: 0.1,
-            ease: "power2.out",
-          }
-        );
-      }
-    },
-    { dependencies: [isOpen], scope: mobileMenuRef }
-  );
+  useGSAP(() => {
+    if (isOpen && mobileMenuRef.current) {
+      gsap.fromTo(
+        mobileMenuRef.current,
+        { opacity: 0, y: -12, clipPath: "inset(0 0 100% 0)" },
+        { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", duration: 0.4, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        mobileMenuRef.current.querySelectorAll(".mobile-link"),
+        { x: -24, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.35, stagger: 0.07, ease: "power2.out", delay: 0.1 }
+      );
+    }
+  }, { dependencies: [isOpen] });
 
   return (
-    <header
-      ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="w-full max-w-[95vw] mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
+    <header ref={navRef} className="fixed top-0 left-0 right-0 z-50">
+      {/* Main bar */}
+      <div
+        className="anim-nav-bar flex items-center justify-between px-8 md:px-14 py-5 border-b border-transparent"
+        style={{ transition: "none" }}
+      >
+        {/* Logo */}
+        <a
+          href="#home"
+          className="anim-nav-logo flex items-center gap-2 group"
+        >
+          <span className="w-7 h-7 rounded-full bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+            <span className="text-white font-black text-[11px]">P</span>
+          </span>
+          <span className="text-xs font-semibold tracking-[0.25em] uppercase text-black">
+            Pritom Das
+          </span>
+        </a>
+
+        {/* Desktop links */}
+        <ul className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="anim-nav-link relative flex flex-col text-xs font-medium tracking-[0.2em] uppercase text-black/50 hover:text-black transition-colors duration-200 pb-0.5"
+              >
+                {link.label}
+                <span
+                  className="nav-underline absolute -bottom-0.5 left-0 w-full h-px bg-black origin-left"
+                  style={{ transform: "scaleX(0)" }}
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA + mobile toggle */}
+        <div className="flex items-center gap-3">
           <a
-            ref={logoRef}
-            href="#home"
-            className="text-3xl font-bold text-gradient transition-all duration-300"
-            style={{ opacity: 1, visibility: "visible" }}
+            href="#contact"
+            className="anim-nav-cta group hidden md:flex items-center gap-2 bg-black text-white text-xs font-bold tracking-[0.2em] uppercase px-5 py-2.5 hover:bg-black/80 transition-colors"
           >
-            PD<span className="text-foreground">.</span>
+            Let&apos;s Talk
+            <ArrowUpRight className="h-3 w-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
 
-          {/* Desktop Navigation */}
-          <ul ref={navLinksRef} className="hidden md:flex items-center gap-12">
+          {/* Mobile hamburger */}
+          <button
+            className="anim-nav-cta md:hidden p-2 border border-black/15 hover:border-black hover:bg-black hover:text-white transition-all duration-200 text-black"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen
+              ? <X className="h-4 w-4" />
+              : <Menu className="h-4 w-4" />
+            }
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <div
+          ref={mobileMenuRef}
+          className="md:hidden bg-white border-b border-black/10"
+        >
+          <ul className="flex flex-col px-8 py-4">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.href} className="border-b border-black/5 last:border-0">
                 <a
                   href={link.href}
-                  className="nav-link text-base font-medium uppercase tracking-wider"
+                  className="mobile-link flex items-center justify-between py-4 text-xs font-semibold tracking-[0.25em] uppercase text-black/50 hover:text-black transition-colors"
+                  onClick={() => setIsOpen(false)}
                 >
                   {link.label}
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-30" />
                 </a>
               </li>
             ))}
+            <li className="pt-4">
+              <a
+                href="#contact"
+                className="mobile-link flex items-center justify-center gap-2 bg-black text-white text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 w-full hover:bg-black/80 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Let&apos;s Talk
+                <ArrowUpRight className="h-3 w-3" />
+              </a>
+            </li>
           </ul>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div
-            ref={mobileMenuRef}
-            className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border"
-          >
-            <ul className="flex flex-col py-4">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="block px-6 py-4 text-base font-medium uppercase tracking-wider text-muted-foreground hover:text-primary hover:bg-muted/50 transition-all duration-300"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </nav>
+      )}
     </header>
   );
 };

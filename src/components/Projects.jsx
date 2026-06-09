@@ -1,12 +1,11 @@
-import { ExternalLink, ArrowRight } from "lucide-react";
-import { Button } from "../ui/button.jsx";
-import { useState, useRef } from "react";
-import ProjectModal from "./ProjectModel.jsx";
-import { projects } from "../data/projects.js";
-import { GitHubIcon } from "../icons/BrandIcons.jsx";
+import { useRef, useState } from "react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProjectModal from "./ProjectModel.jsx";
+import { projects } from "../data/projects.js";
+import { GitHubIcon } from "../icons/BrandIcons.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,60 +17,50 @@ const Projects = () => {
 
   useGSAP(
     () => {
+      // ── Header reveal ──────────────────────────────────────────
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 80%",
-          end: "bottom 20%",
           toggleActions: "play none none reverse",
         },
       });
 
-      // Header animations
-      tl.from(headerRef.current.children[0], {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      })
-        .from(
-          headerRef.current.children[1],
+      tl.fromTo(
+        ".projects-eyebrow",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }
+      )
+        .fromTo(
+          ".projects-title-word",
+          { yPercent: 110, opacity: 0 },
           {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.6"
-        )
-        .from(
-          headerRef.current.children[2],
-          {
-            y: 30,
-            opacity: 0,
+            yPercent: 0,
+            opacity: 1,
             duration: 0.8,
-            ease: "power3.out",
+            stagger: 0.08,
+            ease: "power4.out",
           },
           "-=0.4"
+        )
+        .fromTo(
+          ".projects-divider",
+          { scaleX: 0, transformOrigin: "left center" },
+          { scaleX: 1, duration: 0.9, ease: "power3.inOut" },
+          "-=0.5"
         );
 
-      // Project cards staggered animation
+      // ── Cards stagger ──────────────────────────────────────────
       gsap.fromTo(
         cardsRef.current,
-        {
-          y: 100,
-          opacity: 0,
-          scale: 0.8,
-          rotationX: 45,
-        },
+        { y: 60, opacity: 0, clipPath: "inset(100% 0 0 0)" },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
-          rotationX: 0,
-          duration: 1.2,
+          clipPath: "inset(0% 0 0 0)",
+          duration: 0.9,
           ease: "power3.out",
-          stagger: 0.2,
+          stagger: 0.15,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 70%",
@@ -80,198 +69,201 @@ const Projects = () => {
         }
       );
 
-      // Hover animations for cards
+      // ── Card hover ─────────────────────────────────────────────
       cardsRef.current.forEach((card) => {
-        if (card) {
-          const image = card.querySelector("img");
-          const quickLinks = card.querySelector(".quick-links");
-          const techStack = card.querySelectorAll(".tech-badge");
+        if (!card) return;
 
-          // Card hover effect
-          card.addEventListener("mouseenter", () => {
-            gsap.to(card, {
-              y: -10,
-              scale: 1.02,
-              duration: 0.4,
-              ease: "power2.out",
-            });
+        const img = card.querySelector("img");
+        const quickLinks = card.querySelector(".quick-links");
+        const tags = card.querySelectorAll(".proj-tag");
+        const btn = card.querySelector(".details-btn");
 
-            gsap.to(image, {
-              scale: 1.1,
-              duration: 0.6,
-              ease: "power2.out",
-            });
-
-            gsap.to(quickLinks, {
-              opacity: 1,
-              y: 0,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-
-            gsap.to(techStack, {
-              scale: 1.05,
-              duration: 0.3,
-              stagger: 0.05,
-              ease: "power2.out",
-            });
+        card.addEventListener("mouseenter", () => {
+          gsap.to(img, { scale: 1.07, duration: 0.6, ease: "power2.out" });
+          gsap.to(quickLinks, {
+            opacity: 1,
+            y: 0,
+            duration: 0.25,
+            ease: "power2.out",
           });
-
-          card.addEventListener("mouseleave", () => {
-            gsap.to(card, {
-              y: 0,
-              scale: 1,
-              duration: 0.4,
-              ease: "power2.out",
-            });
-
-            gsap.to(image, {
-              scale: 1,
-              duration: 0.6,
-              ease: "power2.out",
-            });
-
-            gsap.to(quickLinks, {
-              opacity: 0,
-              y: 8,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-
-            gsap.to(techStack, {
-              scale: 1,
-              duration: 0.3,
-              stagger: 0.05,
-              ease: "power2.out",
-            });
+          gsap.to(tags, {
+            backgroundColor: "#000",
+            color: "#fff",
+            borderColor: "#000",
+            duration: 0.18,
+            stagger: 0.04,
           });
-        }
-      });
+          gsap.to(btn, { x: 4, duration: 0.2, ease: "power2.out" });
+        });
 
-      // Continuous floating animation for cards
-      cardsRef.current.forEach((card, index) => {
-        if (card) {
-          gsap.to(card, {
-            y: "+=10",
-            duration: 3 + index * 0.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "power1.inOut",
-            delay: index * 0.3,
+        card.addEventListener("mouseleave", () => {
+          gsap.to(img, { scale: 1, duration: 0.6, ease: "power2.out" });
+          gsap.to(quickLinks, {
+            opacity: 0,
+            y: 8,
+            duration: 0.25,
+            ease: "power2.out",
           });
-        }
+          gsap.to(tags, {
+            backgroundColor: "transparent",
+            color: "rgba(0,0,0,0.5)",
+            borderColor: "rgba(0,0,0,0.12)",
+            duration: 0.18,
+            stagger: 0.04,
+          });
+          gsap.to(btn, { x: 0, duration: 0.2, ease: "power2.out" });
+        });
       });
     },
     { scope: containerRef }
   );
 
-  return (
-    <section id="projects" className="py-32 relative" ref={containerRef}>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,217,255,0.05)_0%,transparent_60%)]" />
+  const titleWords = ["My", "Projects"];
 
-      <div className="w-full max-w-[95vw] mx-auto px-4 relative">
-        {/* Section Header */}
-        <div className="text-center mb-20" ref={headerRef}>
-          <span className="text-primary text-sm font-semibold uppercase tracking-widest">
-            My Work
-          </span>
-          <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold mt-4">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mt-6 max-w-4xl mx-auto">
-            Here are some of my recent projects that showcase my skills and
-            passion for building impactful web applications.
-          </p>
+  return (
+    <section id="projects" className="py-28 relative" ref={containerRef}>
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
+
+        {/* ── Section Header ── */}
+        <div className="mb-14" ref={headerRef}>
+          {/* Eyebrow */}
+          <div className="projects-eyebrow flex items-center gap-3 mb-5">
+            <span className="w-4 h-px bg-black/30" />
+            <p className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
+              Selected Work
+            </p>
+          </div>
+
+          {/* Headline — per-word curtain */}
+          <div className="flex flex-wrap gap-x-4 gap-y-0 mb-6">
+            {titleWords.map((word, i) => (
+              <div key={i} className="overflow-hidden">
+                <h2
+                  className={`projects-title-word text-[clamp(3rem,6vw,5.5rem)] font-black uppercase tracking-tight leading-[0.88]
+                    ${i === 1
+                      ? "text-white [-webkit-text-stroke:2.5px_black]"
+                      : "text-black"
+                    }`}
+                >
+                  {word}
+                </h2>
+              </div>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="projects-divider w-full h-px bg-black/10" />
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+        {/* ── Projects Grid ── */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 border border-black/10"
+          style={{ gap: "1px", background: "rgba(0,0,0,0.1)" }}
+        >
           {projects.map((project, index) => (
             <div
               key={project.id}
               ref={(el) => (cardsRef.current[index] = el)}
-              className="project-card group w-full max-w-sm mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-colors duration-300"
+              className="bg-white flex flex-col overflow-hidden cursor-pointer"
             >
-              {/* Project Image */}
-              <div className="relative h-56 overflow-hidden">
+              {/* Image */}
+              <div className="relative h-56 overflow-hidden bg-black/5 shrink-0">
                 <img
                   src={project.image}
                   alt={project.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-card via-card/50 to-transparent" />
+                {/* Fade bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
 
-                {/* Quick Links */}
-                <div className="quick-links absolute top-4 right-4 flex gap-2 opacity-0 translate-y-2">
+                {/* Index eyebrow */}
+                <div className="absolute top-5 left-5 flex items-center gap-2">
+                  <span className="w-4 h-px bg-white/50" />
+                  <span className="text-[9px] font-semibold tracking-[0.35em] uppercase text-white/55">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+
+                {/* Quick links */}
+                <div className="quick-links absolute top-4 right-4 flex gap-1.5 opacity-0 translate-y-2">
                   <a
                     href={project.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-background/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-8 h-8 bg-black/75 border border-white/15 flex items-center justify-center hover:bg-black transition-colors"
                   >
-                    <ExternalLink className="h-5 w-5" />
+                    <ExternalLink className="h-3.5 w-3.5 text-white" />
                   </a>
                   <a
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-background/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-8 h-8 bg-black/75 border border-white/15 flex items-center justify-center hover:bg-black transition-colors"
                   >
-                    <GitHubIcon className="h-5 w-5" />
+                    <GitHubIcon className="h-3.5 w-3.5 text-white" />
                   </a>
                 </div>
               </div>
 
-              {/* Project Info */}
-              <div className="p-8 space-y-4">
-                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+              {/* Body */}
+              <div className="px-7 pt-5 pb-7 flex flex-col gap-4 flex-1">
+                {/* Title */}
+                <h3 className="text-[clamp(1.3rem,2.5vw,1.75rem)] font-black uppercase tracking-tight leading-none">
                   {project.name}
                 </h3>
 
+                {/* Description */}
                 <p
-                  className="text-muted-foreground overflow-hidden"
+                  className="text-sm text-black/50 leading-relaxed"
                   style={{
                     display: "-webkit-box",
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
                   }}
                 >
                   {project.description}
                 </p>
 
-                {/* Tech Stack */}
+                {/* Tech tags */}
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="tech-badge px-3 py-1.5 rounded-md bg-primary/10 text-primary text-sm font-medium transition-all duration-300"
+                      className="proj-tag text-[10px] font-semibold tracking-[0.2em] uppercase px-3 py-1.5 border border-black/12 text-black/50"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.techStack.length > 3 && (
-                    <span className="px-3 py-1.5 rounded-md bg-muted text-muted-foreground text-sm">
+                    <span className="proj-tag text-[10px] font-semibold tracking-[0.2em] uppercase px-3 py-1.5 border border-black/12 text-black/50">
                       +{project.techStack.length - 3}
                     </span>
                   )}
                 </div>
 
-                {/* View Details Button */}
-                <Button
-                  variant="ghost"
-                  className="w-full mt-4 group/btn hover:bg-primary/10 hover:text-primary transition-all duration-300"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  View Details
-                  <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                </Button>
+                {/* Footer */}
+                <div className="mt-auto pt-5 border-t border-black/8 flex items-center justify-between">
+                  <button
+                    className="details-btn flex items-center gap-2 text-[10px] font-bold tracking-[0.25em] uppercase text-black"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    View Details
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </button>
+                  <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-black/25">
+                    {project.year ?? "2024"}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Project Modal */}
+      {/* Modal */}
       <ProjectModal
         project={selectedProject}
         isOpen={!!selectedProject}

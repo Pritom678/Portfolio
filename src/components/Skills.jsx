@@ -16,20 +16,40 @@ const skills = [
   { name: "TypeScript", category: "Language" },
 ];
 
+const additionalTools = [
+  "Git",
+  "GitHub",
+  "Firebase",
+  "TanStack Query",
+  "Chart.js",
+  "NextAuth.js",
+  "REST APIs",
+  "Responsive Design",
+  "GSAP Animation",
+  "Framer Motion",
+];
+
 const categories = ["All", "Frontend", "Backend", "Database", "Language"];
+
+// Map category → index label for the eyebrow
+const categoryIndex = {
+  Frontend: "01",
+  Backend: "02",
+  Database: "03",
+  Language: "04",
+};
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const containerRef = useRef(null);
-  const headerRef = useRef(null);
   const filtersRef = useRef(null);
-  const skillsGridRef = useRef(null);
-  const additionalSkillsRef = useRef(null);
+  const gridRef = useRef(null);
+  const toolsRef = useRef(null);
 
+  // ── Entrance animations ──────────────────────────────────────
   useGSAP(
     () => {
-      // Header animation
-      const headerTl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 80%",
@@ -37,250 +57,246 @@ const Skills = () => {
         },
       });
 
-      headerTl
-        .from(headerRef.current.children[0], {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        })
-        .from(
-          headerRef.current.children[1],
+      // Eyebrow + headline words
+      tl.fromTo(
+        ".skills-eyebrow",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }
+      )
+        .fromTo(
+          ".skills-title-word",
+          { yPercent: 110, opacity: 0 },
           {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: "power4.out",
           },
-          "-=0.6",
+          "-=0.4"
+        )
+        .fromTo(
+          ".skills-divider",
+          { scaleX: 0, transformOrigin: "left center" },
+          { scaleX: 1, duration: 0.9, ease: "power3.inOut" },
+          "-=0.5"
         );
 
-      // Filter buttons animation
+      // Filter buttons
       gsap.fromTo(
         filtersRef.current.children,
-        {
-          y: 30,
-          opacity: 0,
-          scale: 0.8,
-        },
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          ease: "back.out(1.7)",
-          stagger: 0.1,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.07,
           scrollTrigger: {
             trigger: filtersRef.current,
-            start: "top 85%",
+            start: "top 88%",
             toggleActions: "play none none reverse",
           },
-        },
+        }
       );
 
-      // Skills grid animation
-      const animateSkillCards = () => {
-        const cards = skillsGridRef.current.children;
-        gsap.fromTo(
-          cards,
-          {
-            y: 80,
-            opacity: 0,
-            scale: 0.8,
-            rotationY: 45,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            rotationY: 0,
-            duration: 1,
-            ease: "power3.out",
-            stagger: 0.15,
-          },
-        );
-      };
-
-      // Initial animation
-      ScrollTrigger.create({
-        trigger: skillsGridRef.current,
-        start: "top 80%",
-        onEnter: animateSkillCards,
-      });
-
-      // Additional skills animation
+      // Skill cards
       gsap.fromTo(
-        additionalSkillsRef.current.children,
-        {
-          y: 30,
-          opacity: 0,
-          scale: 0.9,
-        },
+        gridRef.current.children,
+        { y: 50, opacity: 0, clipPath: "inset(100% 0 0 0)" },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
+          clipPath: "inset(0% 0 0 0)",
           duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 82%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Tools row
+      gsap.fromTo(
+        toolsRef.current.children,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
           ease: "power2.out",
           stagger: 0.05,
           scrollTrigger: {
-            trigger: additionalSkillsRef.current,
-            start: "top 85%",
+            trigger: toolsRef.current,
+            start: "top 88%",
             toggleActions: "play none none reverse",
           },
-        },
+        }
       );
 
-      // Hover animations for skill cards
-      const skillCards = skillsGridRef.current.children;
-      Array.from(skillCards).forEach((card) => {
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            y: -8,
-            scale: 1.05,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            y: 0,
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-      });
-
-      // Floating animation for skill cards
-      Array.from(skillCards).forEach((card, index) => {
-        gsap.to(card, {
-          y: "+=5",
-          duration: 2 + index * 0.3,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-          delay: index * 0.2,
-        });
+      // Tool tag hover
+      Array.from(toolsRef.current.children).forEach((tag) => {
+        tag.addEventListener("mouseenter", () =>
+          gsap.to(tag, {
+            backgroundColor: "#000",
+            color: "#fff",
+            borderColor: "#000",
+            duration: 0.18,
+          })
+        );
+        tag.addEventListener("mouseleave", () =>
+          gsap.to(tag, {
+            backgroundColor: "transparent",
+            color: "rgba(0,0,0,0.5)",
+            borderColor: "rgba(0,0,0,0.12)",
+            duration: 0.18,
+          })
+        );
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
-  // Re-animate when category changes
+  // ── Re-animate grid on filter change ────────────────────────
   useGSAP(
     () => {
-      const cards = skillsGridRef.current.children;
-
       gsap.fromTo(
-        cards,
-        {
-          opacity: 0,
-          y: 20,
-          scale: 0.95,
-        },
+        gridRef.current.children,
+        { opacity: 0, y: 24, clipPath: "inset(100% 0 0 0)" },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
+          clipPath: "inset(0% 0 0 0)",
           duration: 0.5,
-          ease: "power2.out",
-          stagger: 0.1,
-        },
+          ease: "power3.out",
+          stagger: 0.07,
+        }
       );
     },
-    { dependencies: [activeCategory], scope: skillsGridRef },
+    { dependencies: [activeCategory], scope: gridRef }
   );
 
   const filteredSkills =
     activeCategory === "All"
       ? skills
-      : skills.filter((skill) => skill.category === activeCategory);
+      : skills.filter((s) => s.category === activeCategory);
+
+  const titleWords = ["Core", "Capabilities"];
 
   return (
-    <section id="skills" ref={containerRef} className="py-32 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(0,217,255,0.05)_0%,transparent_60%)]" />
+    <section id="skills" ref={containerRef} className="py-28 relative">
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
 
-      <div className="w-full max-w-[95vw] mx-auto px-4 relative">
-        {/* Section Header */}
-        <div className="text-center mb-20" ref={headerRef}>
-          <span className="text-primary text-sm font-semibold uppercase tracking-widest">
-            My Skills
-          </span>
-          <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold mt-4">
-            Technical <span className="text-gradient">Expertise</span>
-          </h2>
+        {/* ── Section Header ── */}
+        <div className="mb-14">
+          <div className="skills-eyebrow flex items-center gap-3 mb-5">
+            <span className="w-4 h-px bg-black/30" />
+            <p className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
+              My Skills
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-x-4 gap-y-0 mb-6">
+            {titleWords.map((word, i) => (
+              <div key={i} className="overflow-hidden">
+                <h2
+                  className={`skills-title-word text-[clamp(3rem,6vw,5.5rem)] font-black uppercase tracking-tight leading-[0.88]
+                    ${i === 1
+                      ? "text-white [-webkit-text-stroke:2.5px_black]"
+                      : "text-black"
+                    }`}
+                >
+                  {word}
+                </h2>
+              </div>
+            ))}
+          </div>
+
+          <div className="skills-divider w-full h-px bg-black/10" />
         </div>
 
-        {/* Category Filter */}
+        {/* ── Category Filters ── */}
         <div
-          className="flex flex-wrap justify-center gap-4 mb-16"
+          className="flex flex-wrap gap-2 mb-12"
           ref={filtersRef}
         >
-          {categories.map((category) => (
+          {categories.map((cat) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-8 py-3 rounded-full text-base font-medium transition-all duration-300 ${
-                activeCategory === category
-                  ? "bg-gradient-primary text-primary-foreground glow-primary"
-                  : "glass-card text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`text-[10px] font-bold tracking-[0.25em] uppercase px-5 py-2.5 border transition-none
+                ${activeCategory === cat
+                  ? "bg-black text-white border-black"
+                  : "bg-transparent text-black/50 border-black/12 hover:border-black/30"
+                }`}
             >
-              {category}
+              {cat}
             </button>
           ))}
         </div>
 
-        {/* Skills Grid */}
+        {/* ── Skills Grid ── */}
         <div
-          className="grid md:grid-cols-2 xl:grid-cols-4 gap-8"
-          ref={skillsGridRef}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 border border-black/10"
+          style={{ gap: "1px", background: "rgba(0,0,0,0.1)" }}
+          ref={gridRef}
         >
-          {filteredSkills.map((skill) => (
+          {filteredSkills.map((skill, i) => (
             <div
               key={skill.name}
-              className="glass-card p-8 mt-5 rounded-xl hover:border-primary/30 transition-all duration-300"
+              className="bg-white px-7 py-8 flex flex-col gap-5 group"
             >
-              <h3 className="font-semibold text-foreground text-lg mb-3">
+              {/* Index eyebrow */}
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-px bg-black/20" />
+                <span className="text-[9px] font-semibold tracking-[0.35em] uppercase text-black/30">
+                  {categoryIndex[skill.category] ?? String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+
+              {/* Skill name */}
+              <h3 className="text-xl font-black uppercase tracking-tight leading-none text-black">
                 {skill.name}
               </h3>
 
-              <span className="text-sm text-muted-foreground inline-block">
+              {/* Divider */}
+              <div className="w-full h-px bg-black/8" />
+
+              {/* Category tag */}
+              <span className="self-start text-[10px] font-semibold tracking-[0.25em] uppercase px-3 py-1.5 border border-black/12 text-black/50">
                 {skill.category}
               </span>
             </div>
           ))}
         </div>
 
-        {/* Additional Skills */}
-        <div className="mt-20 text-center" ref={additionalSkillsRef}>
-          <h3 className="text-2xl font-semibold mb-8">
-            Other Tools & Technologies
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              "Git",
-              "GitHub",
-              "Firebase",
-              "TanStack Query",
-              "Chart.js",
-              "NextAuth.js",
-              "REST APIs",
-              "Responsive Design",
-              "GSAP Animation",
-              "Framer Motion",
-            ].map((tool) => (
+        {/* ── Other Tools ── */}
+        <div className="mt-20">
+          {/* Section label */}
+          <div className="flex items-center gap-4 mb-8">
+            <span className="w-4 h-px bg-black/30" />
+            <p className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
+              Other Tools & Technologies
+            </p>
+            <div className="flex-1 h-px bg-black/10" />
+          </div>
+
+          {/* Tool tags */}
+          <div className="flex flex-wrap gap-2" ref={toolsRef}>
+            {additionalTools.map((tool) => (
               <span
                 key={tool}
-                className="px-6 py-3 rounded-full glass-card text-base text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all duration-300"
+                className="text-[10px] font-semibold tracking-[0.2em] uppercase px-4 py-2 border border-black/12 text-black/50 cursor-default"
               >
                 {tool}
               </span>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );

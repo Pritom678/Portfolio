@@ -1,5 +1,4 @@
-import { Download, ChevronDown } from "lucide-react";
-import { Button } from "../ui/button";
+import { Download, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -7,263 +6,300 @@ import { GitHubIcon, LinkedInIcon } from "../icons/BrandIcons";
 
 const Hero = () => {
   const heroRef = useRef();
-  const textRef = useRef();
-  const imageRef = useRef();
-  const particlesRef = useRef();
-  const ctaRef = useRef();
 
   useGSAP(
     () => {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       tl.fromTo(
-        heroRef.current,
-        {
-          scale: 0.8,
-          opacity: 0,
-          rotationY: -15,
-          transformPerspective: 1000,
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          rotationY: 0,
-          duration: 1.2,
-          ease: "power3.out",
-        },
+        ".anim-nav",
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 }
       );
 
       tl.fromTo(
-        textRef.current.children,
-        {
-          y: 100,
-          opacity: 0,
-          rotationX: 90,
-          transformOrigin: "50% 50% -50px",
-        },
-        {
-          y: 0,
-          opacity: 1,
-          rotationX: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "back.out(1.7)",
-        },
-        "-=0.5",
+        ".anim-eyebrow",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 },
+        "-=0.3"
       );
 
       tl.fromTo(
-        imageRef.current,
-        {
-          scale: 0,
-          rotation: 180,
-          opacity: 0,
-        },
-        {
-          scale: 1,
-          rotation: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "elastic.out(1, 0.5)",
-        },
-        "-=0.8",
-      );
-
-      gsap.set(particlesRef.current.children, {
-        opacity: 0,
-        scale: 0,
-      });
-
-      tl.to(
-        particlesRef.current.children,
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power2.out",
-        },
-        "-=0.5",
+        ".anim-word",
+        { yPercent: 110, opacity: 0, rotationZ: 2 },
+        { yPercent: 0, opacity: 1, rotationZ: 0, duration: 0.9, stagger: 0.12 },
+        "-=0.2"
       );
 
       tl.fromTo(
-        ctaRef.current.children,
-        {
-          y: 50,
-          opacity: 0,
-          scale: 0.8,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-        },
-        "-=0.3",
+        ".anim-body",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        "-=0.4"
       );
 
-      gsap.to(particlesRef.current.children[0], {
-        y: -20,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+      tl.fromTo(
+        ".anim-cta",
+        { y: 30, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1 },
+        "-=0.4"
+      );
 
-      gsap.to(particlesRef.current.children[1], {
-        y: -15,
-        x: 10,
+      tl.fromTo(
+        ".anim-image-wrap",
+        { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: "power3.inOut" },
+        "-=0.8"
+      );
+
+      tl.fromTo(
+        ".anim-stat",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 },
+        "-=0.5"
+      );
+
+      tl.fromTo(
+        ".anim-ticker",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6 },
+        "-=0.2"
+      );
+
+      tl.fromTo(
+        ".anim-scroll-line",
+        { scaleY: 0, transformOrigin: "top center" },
+        { scaleY: 1, duration: 0.8, ease: "power2.out" },
+        "-=0.4"
+      );
+
+      gsap.to(".anim-image-wrap img", {
+        y: -10,
         duration: 4,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        delay: 1,
+        delay: 1.5,
       });
 
-      gsap.to(particlesRef.current.children[2], {
-        y: -25,
-        x: -5,
-        duration: 3.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 2,
-      });
-
-      gsap.to(imageRef.current.querySelector(".glow-effect"), {
-        scale: 1.1,
-        opacity: 0.8,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+      const panel = document.querySelector(".anim-right-panel");
+      if (panel) {
+        const onMove = (e) => {
+          const rect = panel.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          gsap.to(panel, {
+            rotationY: x * 6,
+            rotationX: -y * 4,
+            transformPerspective: 900,
+            duration: 0.6,
+            ease: "power2.out",
+          });
+        };
+        const onLeave = () => {
+          gsap.to(panel, {
+            rotationY: 0,
+            rotationX: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        };
+        panel.addEventListener("mousemove", onMove);
+        panel.addEventListener("mouseleave", onLeave);
+        return () => {
+          panel.removeEventListener("mousemove", onMove);
+          panel.removeEventListener("mouseleave", onLeave);
+        };
+      }
     },
-    { scope: heroRef },
+    { scope: heroRef }
   );
 
   return (
-    <>
-      <div className="absolute h-[140vh] inset-0 bg-grid-pattern" />
+    <section id="home" ref={heroRef} className="min-h-screen bg-white text-black font-sans overflow-hidden flex flex-col">
 
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden "
-      >
-        {/* FULL WIDTH GRID BACKGROUND */}
+      {/* ── HERO BODY ── */}
+      <div className="flex-1 grid grid-cols-1 xl:grid-cols-[1fr_480px] min-h-0 p-12 md:p-16 lg:p-24 gap-12 items-center">
 
-        {/* Radial light overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,217,255,0.1)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,168,204,0.05)_0%,transparent_50%)]" />
+        {/* LEFT — centered text */}
+        <div className="flex flex-col justify-between py-12 xl:border-r border-black/10 pr-10">
+          <div className="space-y-8 text-center xl:text-left flex flex-col items-center xl:items-start">
 
-        {/* Floating Particles */}
-        <div ref={particlesRef}>
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-primary/30" />
-          <div className="absolute top-1/3 right-1/3 w-3 h-3 rounded-full bg-primary/20" />
-          <div className="absolute bottom-1/4 right-1/4 w-2 h-2 rounded-full bg-primary/25" />
-        </div>
-
-        {/* Hero Content Container */}
-        <div
-          ref={heroRef}
-          className="w-screen mx-auto h-full min-h-[90vh] relative rounded-2xl overflow-hidden"
-        >
-          <div className="relative z-10 h-full flex items-center px-8 py-20">
-            <div className="w-full mx-20 flex flex-col xl:flex-row items-center justify-between gap-16 xl:gap-20">
-              {/* Text Content */}
-              <div
-                ref={textRef}
-                className="flex-1 text-center xl:text-left space-y-8 max-w-2xl xl:max-w-none"
-              >
-                <div className="inline-block px-6 py-3 rounded-full border border-primary/30 bg-primary/5">
-                  <span className="text-primary text-sm font-medium">
-                    👋 Welcome to my portfolio
-                  </span>
-                </div>
-
-                <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight">
-                  Hi, I'm <span className="text-gradient">Pritom Das</span>
-                </h1>
-
-                <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold text-muted-foreground">
-                  MERN Stack Developer
-                </h2>
-
-                <p className="text-xl xl:text-2xl text-muted-foreground max-w-3xl mx-auto xl:mx-0 leading-relaxed">
-                  Crafting scalable, user-centric web applications with modern
-                  technologies. Passionate about clean code, intuitive design,
-                  and delivering exceptional digital experiences.
-                </p>
-
-                <div
-                  ref={ctaRef}
-                  className="flex flex-col sm:flex-row items-center xl:items-start gap-6 pt-4"
-                >
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-gradient-primary hover:opacity-90 text-primary-foreground glow-primary transition-all duration-300 gap-2 hover-lift px-8 py-4 text-lg"
-                  >
-                    <a href="/pritom (2).pdf" download="Pritom_Das_Resume.pdf">
-                      <Download className="h-6 w-6" />
-                      Download Resume
-                    </a>
-                  </Button>
-
-                  <div className="flex items-center gap-4">
-                    <a
-                      href="https://github.com/Pritom678"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
-                    >
-                      <GitHubIcon className="h-6 w-6" />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/pritom1722002"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-4 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all duration-300 hover-lift hover-glow"
-                    >
-                      <LinkedInIcon className="h-6 w-6" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Profile Image */}
-              <div
-                ref={imageRef}
-                className="flex-1 flex justify-center xl:justify-end"
-              >
-                <div className="relative">
-                  <div className="glow-effect absolute inset-0 rounded-full bg-gradient-primary blur-3xl opacity-30 scale-110" />
-
-                  <div className="relative w-80 h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-4 border-primary/30 glow-primary bg-muted flex items-center justify-center hover-lift">
-                    <img
-                      src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1767634713/profile_wnzqr0.jpg"
-                      alt="Pritom Das"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="absolute -inset-6 rounded-full border border-primary/20" />
-                </div>
-              </div>
+            {/* Eyebrow */}
+            <div className="anim-eyebrow flex items-center gap-3">
+              <span className="w-6 h-px bg-black hidden xl:block" />
+              <span className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
+                I Design &amp; Build
+              </span>
+              <span className="w-6 h-px bg-black xl:hidden" />
             </div>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-              <span className="text-xs text-muted-foreground uppercase tracking-widest">
-                Scroll
+            {/* Headline */}
+            <div className="space-y-1 overflow-hidden w-full">
+              {["Digital", "Experiences", "That Inspire."].map((word, i) => (
+                <div key={word} className="overflow-hidden">
+                  <h1
+                    className={`anim-word text-[clamp(3.5rem,9vw,8.5rem)] font-black leading-[0.9] tracking-tight uppercase
+                      ${i === 1 ? "text-white [-webkit-text-stroke:2px_black]" : "text-black"}`}
+                  >
+                    {word}
+                  </h1>
+                </div>
+              ))}
+            </div>
+
+            {/* Body copy */}
+            <p className="anim-body text-base md:text-lg text-black/50 max-w-lg leading-relaxed">
+              I help brands create meaningful connections through clean code, thoughtful design, and strategic thinking.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center justify-center xl:justify-start gap-5">
+              <a
+                href="/pritom (2).pdf"
+                download="Pritom_Das_Resume.pdf"
+                className="anim-cta group flex items-center gap-3 bg-black text-white font-bold text-xs tracking-[0.2em] uppercase px-8 py-4 hover:bg-black/80 transition-colors"
+              >
+                <Download className="h-3.5 w-3.5" />
+                Download CV
+                <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+
+              <a
+                href="#projects"
+                className="anim-cta flex items-center gap-2 text-black/50 hover:text-black text-xs font-semibold tracking-[0.2em] uppercase transition-colors"
+              >
+                View My Work
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            </div>
+
+            {/* Socials */}
+            <div className="anim-cta flex items-center gap-3">
+              <a
+                href="https://github.com/Pritom678"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 border border-black/15 hover:border-black hover:bg-black hover:text-white transition-all duration-200 text-black/50"
+              >
+                <GitHubIcon className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/pritom1722002"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 border border-black/15 hover:border-black hover:bg-black hover:text-white transition-all duration-200 text-black/50"
+              >
+                <LinkedInIcon className="h-4 w-4" />
+              </a>
+              <span className="text-[10px] text-black/30 tracking-[0.3em] uppercase ml-2">
+                Based in Dhaka, BD
               </span>
-              <ChevronDown className="h-5 w-5 text-primary animate-bounce" />
             </div>
           </div>
+
+          {/* Stack tags row */}
+          <div className="anim-cta hidden xl:flex items-center gap-0 mt-10">
+            {["React", "Node.js", "MongoDB", "Express", "Tailwind"].map((tag) => (
+              <span
+                key={tag}
+                className="text-[10px] font-semibold tracking-[0.2em] uppercase px-4 py-2 border-r border-black/10 first:border-l text-black/30 hover:text-black hover:bg-black/5 transition-colors cursor-default"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
-      </section>
-    </>
+
+        {/* RIGHT — photo + stats with 3D tilt */}
+        <div className="anim-right-panel flex flex-col border-t xl:border-t-0 pl-10" style={{ transformStyle: "preserve-3d" }}>
+
+          {/* Photo */}
+          <div className="anim-image-wrap relative flex-1 overflow-hidden bg-black/5 min-h-[50vh] xl:min-h-0">
+            <img
+              src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1767634713/profile_wnzqr0.jpg"
+              alt="Pritom Das"
+              className="w-full h-full object-cover object-top grayscale"
+            />
+            {/* Overlay labels */}
+            <div className="absolute top-5 right-5 text-right">
+              <p className="text-[9px] font-semibold tracking-[0.3em] uppercase text-white/70">Available for projects</p>
+              <p className="text-[9px] font-semibold tracking-[0.3em] uppercase text-white/70 mt-0.5">Based in Dhaka</p>
+            </div>
+            {/* Available dot */}
+            <div className="absolute top-5 left-5 flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-40" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-black" />
+              </span>
+              <span className="text-[9px] font-semibold tracking-widest uppercase text-white/60">Open to work</span>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
+
+          {/* Stats 2×2 */}
+          <div className="grid grid-cols-2 border-t border-black/10">
+            {[
+              { value: "3+", label: "Projects Done" },
+              { value: "MERN", label: "Core Stack" },
+              { value: "2026", label: "Current Focus" },
+              { value: "100%", label: "Commitment" },
+            ].map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`anim-stat p-6 border-black/10 hover:bg-black hover:text-white transition-colors duration-300 group
+                  ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b" : ""}`}
+              >
+                <p className="text-2xl font-black leading-none group-hover:scale-110 transition-transform duration-300 origin-left">
+                  {stat.value}
+                </p>
+                <p className="text-[10px] font-medium tracking-[0.25em] uppercase text-black/40 group-hover:text-white/50 mt-1.5 transition-colors">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── TICKER STRIP ── */}
+      <div className="anim-ticker border-t border-black/10 overflow-hidden">
+        <div
+          className="flex items-center py-3 whitespace-nowrap"
+          style={{ animation: "ticker 22s linear infinite" }}
+        >
+          {Array(4)
+            .fill(["Web Development", "UI Engineering", "MERN Stack", "React", "Clean Design", "Freelance Available"])
+            .flat()
+            .map((item, i) => (
+              <span
+                key={i}
+                className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/30 px-8 border-r border-black/10 shrink-0"
+              >
+                {item}
+              </span>
+            ))}
+        </div>
+      </div>
+
+      {/* Scroll line */}
+      <div className="absolute bottom-28 left-10 hidden xl:flex flex-col items-center gap-3">
+        <div className="anim-scroll-line w-px h-14 bg-black/25" />
+        <span
+          className="text-[9px] tracking-[0.4em] uppercase text-black/25"
+          style={{ writingMode: "vertical-rl" }}
+        >
+          Scroll
+        </span>
+      </div>
+
+      <style>{`
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
   );
 };
 
