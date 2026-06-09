@@ -31,7 +31,6 @@ const Contact = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    // Eyebrow + headline words clip up
     gsap.fromTo(
       ".contact-eyebrow",
       { y: 30, opacity: 0 },
@@ -60,7 +59,6 @@ const Contact = () => {
       }
     );
 
-    // Divider grows
     gsap.fromTo(
       ".contact-divider",
       { scaleX: 0, transformOrigin: "left center" },
@@ -70,7 +68,6 @@ const Contact = () => {
       }
     );
 
-    // Contact cards wipe in
     gsap.fromTo(
       ".contact-card",
       { clipPath: "inset(0 100% 0 0)", opacity: 0 },
@@ -81,7 +78,6 @@ const Contact = () => {
       }
     );
 
-    // CTA block slides up
     gsap.fromTo(
       ".contact-cta",
       { y: 60, opacity: 0 },
@@ -91,7 +87,6 @@ const Contact = () => {
       }
     );
 
-    // Card hover — invert to black
     document.querySelectorAll(".contact-card").forEach((card) => {
       const icon = card.querySelector(".card-icon");
       const label = card.querySelector(".card-label");
@@ -112,7 +107,6 @@ const Contact = () => {
       });
     });
 
-    // CTA email button hover
     const emailBtn = document.querySelector(".contact-email-btn");
     if (emailBtn) {
       emailBtn.addEventListener("mouseenter", () =>
@@ -122,7 +116,6 @@ const Contact = () => {
         gsap.to(emailBtn, { backgroundColor: "#000", duration: 0.22 })
       );
     }
-
   }, { scope: containerRef });
 
   return (
@@ -131,13 +124,16 @@ const Contact = () => {
 
         {/* ── HEADER ── */}
         <div className="contact-header mb-16 md:mb-20">
+
+          {/* Eyebrow — left anchored */}
           <div className="contact-eyebrow flex items-center gap-3 mb-6">
-            <span className="w-6 h-px bg-black" />
+            <span className="w-4 h-px bg-black/30" />
             <span className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
               Get In Touch
             </span>
           </div>
 
+          {/* Headline — left anchored, no centering */}
           <div className="space-y-1 mb-8">
             {["Let's Build", "Something", "Distinct."].map((line, i) => (
               <div key={line} className="overflow-hidden">
@@ -151,7 +147,8 @@ const Contact = () => {
             ))}
           </div>
 
-          <p className="contact-subtext text-base md:text-lg text-black/50 max-w-xl leading-relaxed mb-8">
+          {/* Subtext — left anchored, width capped */}
+          <p className="contact-subtext text-sm text-black/50 max-w-xl leading-relaxed mb-8">
             If you need a site that feels elevated, minimal, and ready for clients or hiring managers — I'd love to discuss the direction.
           </p>
 
@@ -166,7 +163,7 @@ const Contact = () => {
               href={contact.href}
               target={contact.label === "WhatsApp" ? "_blank" : undefined}
               rel={contact.label === "WhatsApp" ? "noopener noreferrer" : undefined}
-              className="contact-card group border border-black/10 p-7 flex flex-col gap-5 bg-white"
+              className="contact-card border border-black/10 p-7 flex flex-col gap-5 bg-white"
             >
               <div className="flex items-start justify-between">
                 <div className="card-icon w-11 h-11 bg-black/5 flex items-center justify-center text-black">
@@ -188,7 +185,9 @@ const Contact = () => {
 
         {/* ── CTA BLOCK ── */}
         <div className="contact-cta border border-black/10 p-10 md:p-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
-          <div className="space-y-5 max-w-xl">
+
+          {/* Left text — all left aligned */}
+          <div className="flex flex-col gap-5 max-w-xl">
             <div className="flex items-center gap-2 text-black/40">
               <MapPin className="h-3.5 w-3.5" />
               <span className="text-[10px] font-semibold tracking-[0.3em] uppercase">
@@ -200,19 +199,20 @@ const Contact = () => {
               Ready to Start<br />a Project?
             </h3>
 
-            <p className="text-base text-black/50 leading-relaxed">
+            <p className="text-sm text-black/50 leading-relaxed">
               Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 shrink-0">
+          {/* Right buttons — left aligned within their column */}
+          <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
             <a
               href="mailto:pritomdas6783@gmail.com"
               className="contact-email-btn group flex items-center gap-3 bg-black text-white font-bold text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors"
             >
               <Send className="h-3.5 w-3.5" />
               Send an Email
-              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ml-auto" />
             </a>
             <a
               href="https://wa.me/8801889557719"
@@ -222,7 +222,7 @@ const Contact = () => {
             >
               <MessageCircle className="h-3.5 w-3.5" />
               WhatsApp Me
-              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ml-auto" />
             </a>
           </div>
         </div>
