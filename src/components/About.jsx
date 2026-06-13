@@ -7,16 +7,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const highlights = [
-  { icon: Code2, label: "Clean Code", description: "Writing maintainable, scalable code" },
-  { icon: Coffee, label: "Problem Solver", description: "Turning complex ideas into simple solutions" },
-  { icon: Gamepad2, label: "Gaming", description: "Competitive gaming in my downtime" },
-  { icon: Music, label: "Music", description: "Coding with lo-fi beats" },
+  { icon: Code2, label: "Custom Code", description: "React, HTML & JS sites built for performance and conversion" },
+  { icon: Coffee, label: "Wix Expert", description: "Professional Wix builds with SEO, speed, and clean structure" },
+  { icon: Gamepad2, label: "Squarespace", description: "Polished Squarespace sites for brands that value design" },
+  { icon: Music, label: "Results-Driven", description: "Every site built to attract clients and grow your business" },
 ];
 
 const stats = [
-  { value: "3+", label: "Projects" },
-  { value: "4+", label: "Technologies" },
-  { value: "∞", label: "Curiosity" },
+  { value: "4+", label: "Sites Built" },
+  { value: "3", label: "Platforms" },
+  { value: "∞", label: "Dedication" },
 ];
 
 const About = () => {
@@ -140,7 +140,7 @@ const About = () => {
 
           {/* Clipped headline */}
           <div className="space-y-1 mb-8">
-            {["A Cleaner Way", "To Present", "Your Brand Online."].map((line, i) => (
+            {["Professional Websites", "That Work For", "Your Business."].map((line, i) => (
               <div key={line} className="overflow-hidden">
                 <h2
                   className={`about-headline-word text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-tight uppercase
@@ -162,22 +162,22 @@ const About = () => {
           {/* LEFT — text + stats */}
           <div className="about-text space-y-7">
             <p className="about-para text-lg xl:text-xl text-black/50 leading-relaxed">
-              I build visual-first websites that feel calm, structured, and premium. The goal is simple: make every section easier to trust, easier to browse, and more memorable for the people who matter.
+              I specialise in building professional websites on Wix, Squarespace, and custom code — designed to attract the right clients, establish credibility, and convert visitors into customers.
             </p>
 
             <div className="about-para flex items-center gap-3">
               <span className="w-6 h-px bg-black" />
               <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-black/40">
-                Design + Development
+                Platform + Custom Development
               </span>
             </div>
 
             <p className="about-para text-lg xl:text-xl text-black/50 leading-relaxed">
-              My process blends clean interface design, practical product thinking, and smooth frontend execution — so the site feels modern without becoming noisy or over-designed.
+              Whether you need a fast Wix or Squarespace site, or a fully custom-coded React build — I deliver clean, modern websites focused on real business outcomes: more leads, better brand perception, and a site you're proud to share.
             </p>
 
             <p className="about-para text-lg xl:text-xl text-black/50 leading-relaxed">
-              When I'm not coding, you'll find me exploring new technologies, playing video games, or listening to music. I believe in continuous learning and always push myself to stay updated.
+              I work with businesses, personal brands, and entrepreneurs who want a website that doesn't just look good — but actively grows their business.
             </p>
 
             {/* Stats */}

@@ -95,7 +95,7 @@ const Footer = () => {
             href="mailto:pritomdas6783@gmail.com"
             className="group flex items-center gap-3 bg-black text-white font-bold text-xs tracking-[0.2em] uppercase px-8 py-4 hover:bg-black/80 transition-colors shrink-0"
           >
-            Get In Touch
+            Contact Me
             <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>

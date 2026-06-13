@@ -135,7 +135,7 @@ const Contact = () => {
 
           {/* Headline — left anchored, no centering */}
           <div className="space-y-1 mb-8">
-            {["Let's Build", "Something", "Distinct."].map((line, i) => (
+            {["Let's Build a", "Website That", "Grows Your Business."].map((line, i) => (
               <div key={line} className="overflow-hidden">
                 <h2
                   className={`contact-headline-word text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-tight uppercase
@@ -149,7 +149,7 @@ const Contact = () => {
 
           {/* Subtext — left anchored, width capped */}
           <p className="contact-subtext text-sm text-black/50 max-w-xl leading-relaxed mb-8">
-            If you need a site that feels elevated, minimal, and ready for clients or hiring managers — I'd love to discuss the direction.
+            Whether you need a Wix site, a Squarespace build, or a fully custom-coded website — I'd love to hear about your project and help you build something that makes a real difference for your business.
           </p>
 
           <div className="contact-divider w-full h-px bg-black/10" />
@@ -196,11 +196,11 @@ const Contact = () => {
             </div>
 
             <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-black leading-[0.95] tracking-tight uppercase">
-              Ready to Start<br />a Project?
+              Ready to Start<br />Your Project?
             </h3>
 
             <p className="text-sm text-black/50 leading-relaxed">
-              Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+              Let's build a professional website that grows your business, attracts the right clients, and makes your brand look its best online.
             </p>
           </div>
 

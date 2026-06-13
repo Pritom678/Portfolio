@@ -1,4 +1,4 @@
-import { Download, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -129,14 +129,14 @@ const Hero = () => {
             <div className="anim-eyebrow flex items-center gap-3">
               <span className="w-6 h-px bg-black hidden xl:block" />
               <span className="text-[10px] font-semibold tracking-[0.35em] uppercase text-black/40">
-                I Design &amp; Build
+                Wix · Squarespace · Custom Code
               </span>
               <span className="w-6 h-px bg-black xl:hidden" />
             </div>
 
             {/* Headline */}
             <div className="space-y-1 overflow-hidden w-full">
-              {["Digital", "Experiences", "That Inspire."].map((word, i) => (
+              {["Web Developer", "For Modern", "Businesses."].map((word, i) => (
                 <div key={word} className="overflow-hidden">
                   <h1
                     className={`anim-word text-[clamp(3.5rem,9vw,8.5rem)] font-black leading-[0.9] tracking-tight uppercase
@@ -150,26 +150,24 @@ const Hero = () => {
 
             {/* Body copy */}
             <p className="anim-body text-base md:text-lg text-black/50 max-w-lg leading-relaxed">
-              I help brands create meaningful connections through clean code, thoughtful design, and strategic thinking.
+              I build high-converting websites on Wix, Squarespace, and custom code — designed to grow your business, attract clients, and make your brand look professional from day one.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center justify-center xl:justify-start gap-5">
               <a
-                href="/pritom (2).pdf"
-                download="Pritom_Das_Resume.pdf"
+                href="#projects"
                 className="anim-cta group flex items-center gap-3 bg-black text-white font-bold text-xs tracking-[0.2em] uppercase px-8 py-4 hover:bg-black/80 transition-colors"
               >
-                <Download className="h-3.5 w-3.5" />
-                Download CV
+                View Projects
                 <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
               <a
-                href="#projects"
+                href="#contact"
                 className="anim-cta flex items-center gap-2 text-black/50 hover:text-black text-xs font-semibold tracking-[0.2em] uppercase transition-colors"
               >
-                View My Work
+                Contact Me
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </div>
@@ -200,7 +198,7 @@ const Hero = () => {
 
           {/* Stack tags row */}
           <div className="anim-cta hidden xl:flex items-center gap-0 mt-10">
-            {["React", "Node.js", "MongoDB", "Express", "Tailwind"].map((tag) => (
+            {["Wix", "Squarespace", "React", "HTML/CSS", "JavaScript"].map((tag) => (
               <span
                 key={tag}
                 className="text-[10px] font-semibold tracking-[0.2em] uppercase px-4 py-2 border-r border-black/10 first:border-l text-black/30 hover:text-black hover:bg-black/5 transition-colors cursor-default"
@@ -240,9 +238,9 @@ const Hero = () => {
           {/* Stats 2×2 */}
           <div className="grid grid-cols-2 border-t border-black/10">
             {[
-              { value: "3+", label: "Projects Done" },
-              { value: "MERN", label: "Core Stack" },
-              { value: "2026", label: "Current Focus" },
+              { value: "4+", label: "Sites Delivered" },
+              { value: "Wix", label: "Platform Expert" },
+              { value: "React", label: "Custom Code" },
               { value: "100%", label: "Commitment" },
             ].map((stat, i) => (
               <div
@@ -269,7 +267,7 @@ const Hero = () => {
           style={{ animation: "ticker 22s linear infinite" }}
         >
           {Array(4)
-            .fill(["Web Development", "UI Engineering", "MERN Stack", "React", "Clean Design", "Freelance Available"])
+            .fill(["Wix Development", "Squarespace Development", "Custom Code", "React", "High-Converting Websites", "Freelance Available"])
             .flat()
             .map((item, i) => (
               <span

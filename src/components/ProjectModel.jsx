@@ -200,19 +200,21 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
               className="group flex-1 flex items-center justify-center gap-2 bg-black text-white font-bold text-xs tracking-[0.2em] uppercase px-6 py-4 hover:bg-black/80 transition-colors"
             >
               <ExternalLink className="h-3.5 w-3.5" />
-              Live Demo
+              {project.platform === "Custom" ? "Live Demo" : "View Project"}
               <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ml-auto" />
             </a>
-            <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex-1 flex items-center justify-center gap-2 border border-black/15 hover:border-black hover:bg-black hover:text-white text-black font-bold text-xs tracking-[0.2em] uppercase px-6 py-4 transition-all duration-200"
-            >
-              <GitHubIcon className="h-3.5 w-3.5" />
-              View Code
-              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ml-auto" />
-            </a>
+            {project.platform === "Custom" && project.githubLink !== "#" && (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex-1 flex items-center justify-center gap-2 border border-black/15 hover:border-black hover:bg-black hover:text-white text-black font-bold text-xs tracking-[0.2em] uppercase px-6 py-4 transition-all duration-200"
+              >
+                <GitHubIcon className="h-3.5 w-3.5" />
+                View Code
+                <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ml-auto" />
+              </a>
+            )}
           </div>
         </div>
       </div>
