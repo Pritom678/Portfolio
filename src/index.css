@@ -44,6 +44,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
 }
 
 body {
@@ -53,10 +55,15 @@ body {
   background: #ffffff;
   color: #000000;
   font-family: "Inter", sans-serif;
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ── SELECTION ── */
