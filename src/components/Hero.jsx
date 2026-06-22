@@ -90,7 +90,7 @@ const Hero = () => {
                 <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
               </a>
               <a
-                href="/pritom (2).pdf"
+                href="/pritom-das-resume.pdf"
                 download="Pritom_Das_Resume.pdf"
                 className="anim-cta group flex items-center gap-2 border border-black/20 hover:border-black hover:bg-black hover:text-white text-black text-xs font-semibold tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 transition-all duration-200"
               >
