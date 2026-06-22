@@ -8,6 +8,7 @@ const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Services" },
   { href: "#projects", label: "Projects" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -16,6 +17,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const menuId = "mobile-nav-menu";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -23,50 +25,27 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Entrance animation
+  // Close menu on Escape
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape" && isOpen) setIsOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
+
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl.fromTo(".anim-nav-bar", { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 });
+    tl.fromTo(".anim-nav-logo", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6 }, "-=0.4");
+    tl.fromTo(".anim-nav-link", { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }, "-=0.3");
+    tl.fromTo(".anim-nav-cta", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5 }, "-=0.4");
 
-    tl.fromTo(
-      ".anim-nav-bar",
-      { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8 }
-    );
-
-    tl.fromTo(
-      ".anim-nav-logo",
-      { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 0.6 },
-      "-=0.4"
-    );
-
-    tl.fromTo(
-      ".anim-nav-link",
-      { y: -15, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 },
-      "-=0.3"
-    );
-
-    tl.fromTo(
-      ".anim-nav-cta",
-      { opacity: 0, x: 20 },
-      { opacity: 1, x: 0, duration: 0.5 },
-      "-=0.4"
-    );
-
-    // Underline hover on each nav link
     document.querySelectorAll(".anim-nav-link").forEach((link) => {
       const line = link.querySelector(".nav-underline");
-      link.addEventListener("mouseenter", () =>
-        gsap.to(line, { scaleX: 1, duration: 0.25, ease: "power2.out" })
-      );
-      link.addEventListener("mouseleave", () =>
-        gsap.to(line, { scaleX: 0, duration: 0.2, ease: "power2.in" })
-      );
+      link.addEventListener("mouseenter", () => gsap.to(line, { scaleX: 1, duration: 0.25, ease: "power2.out" }));
+      link.addEventListener("mouseleave", () => gsap.to(line, { scaleX: 0, duration: 0.2, ease: "power2.in" }));
     });
   }, { scope: navRef });
 
-  // Scroll-based border
   useGSAP(() => {
     gsap.to(".anim-nav-bar", {
       borderBottomColor: scrolled ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0)",
@@ -77,16 +56,13 @@ const Navbar = () => {
     });
   }, { dependencies: [scrolled], scope: navRef });
 
-  // Mobile menu animation
   useGSAP(() => {
     if (isOpen && mobileMenuRef.current) {
-      gsap.fromTo(
-        mobileMenuRef.current,
+      gsap.fromTo(mobileMenuRef.current,
         { opacity: 0, y: -12, clipPath: "inset(0 0 100% 0)" },
         { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", duration: 0.4, ease: "power3.out" }
       );
-      gsap.fromTo(
-        mobileMenuRef.current.querySelectorAll(".mobile-link"),
+      gsap.fromTo(mobileMenuRef.current.querySelectorAll(".mobile-link"),
         { x: -24, opacity: 0 },
         { x: 0, opacity: 1, duration: 0.35, stagger: 0.07, ease: "power2.out", delay: 0.1 }
       );
@@ -95,26 +71,20 @@ const Navbar = () => {
 
   return (
     <header ref={navRef} className="fixed top-0 left-0 right-0 z-50">
-      {/* Main bar */}
       <div
-        className="anim-nav-bar flex items-center justify-between px-8 md:px-14 py-5 border-b border-transparent"
+        className="anim-nav-bar flex items-center justify-between px-5 sm:px-8 md:px-14 py-5 border-b border-transparent"
         style={{ transition: "none" }}
       >
         {/* Logo */}
-        <a
-          href="#home"
-          className="anim-nav-logo flex items-center gap-2 group"
-        >
+        <a href="#home" className="anim-nav-logo flex items-center gap-2 group">
           <span className="w-7 h-7 rounded-full bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-            <span className="text-white font-black text-[11px]">P</span>
+            <span className="text-white font-black text-[11px]" aria-hidden="true">P</span>
           </span>
-          <span className="text-xs font-semibold tracking-[0.25em] uppercase text-black">
-            Pritom Das
-          </span>
+          <span className="text-xs font-semibold tracking-[0.25em] uppercase text-black">Pritom Das</span>
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-8" role="list">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -122,10 +92,7 @@ const Navbar = () => {
                 className="anim-nav-link relative flex flex-col text-xs font-medium tracking-[0.2em] uppercase text-black/50 hover:text-black transition-colors duration-200 pb-0.5"
               >
                 {link.label}
-                <span
-                  className="nav-underline absolute -bottom-0.5 left-0 w-full h-px bg-black origin-left"
-                  style={{ transform: "scaleX(0)" }}
-                />
+                <span className="nav-underline absolute -bottom-0.5 left-0 w-full h-px bg-black origin-left" style={{ transform: "scaleX(0)" }} aria-hidden="true" />
               </a>
             </li>
           ))}
@@ -133,24 +100,19 @@ const Navbar = () => {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-3">
-          <a
-            href="#contact"
-            className="anim-nav-cta group hidden md:flex items-center gap-2 bg-black text-white text-xs font-bold tracking-[0.2em] uppercase px-5 py-2.5 hover:bg-black/80 transition-colors"
-          >
+          <a href="#contact" className="anim-nav-cta group hidden md:flex items-center gap-2 bg-black text-white text-xs font-bold tracking-[0.2em] uppercase px-5 py-2.5 hover:bg-black/80 transition-colors">
             Let&apos;s Talk
-            <ArrowUpRight className="h-3 w-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="h-3 w-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
           </a>
 
-          {/* Mobile hamburger */}
           <button
             className="anim-nav-cta md:hidden p-2 border border-black/15 hover:border-black hover:bg-black hover:text-white transition-all duration-200 text-black"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            aria-controls={menuId}
           >
-            {isOpen
-              ? <X className="h-4 w-4" />
-              : <Menu className="h-4 w-4" />
-            }
+            {isOpen ? <X className="h-4 w-4" aria-hidden="true" /> : <Menu className="h-4 w-4" aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -158,10 +120,13 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div
+          id={menuId}
           ref={mobileMenuRef}
           className="md:hidden bg-white border-b border-black/10"
+          role="navigation"
+          aria-label="Mobile navigation"
         >
-          <ul className="flex flex-col px-8 py-4">
+          <ul className="flex flex-col px-8 py-4" role="list">
             {navLinks.map((link) => (
               <li key={link.href} className="border-b border-black/5 last:border-0">
                 <a
@@ -170,7 +135,7 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
-                  <ArrowUpRight className="h-3.5 w-3.5 opacity-30" />
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-30" aria-hidden="true" />
                 </a>
               </li>
             ))}
@@ -181,7 +146,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Let&apos;s Talk
-                <ArrowUpRight className="h-3 w-3" />
+                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
               </a>
             </li>
           </ul>

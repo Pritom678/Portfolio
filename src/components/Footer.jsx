@@ -2,10 +2,7 @@ import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GitHubIcon, LinkedInIcon } from "../icons/BrandIcons";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const containerRef = useRef(null);

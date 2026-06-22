@@ -4,7 +4,7 @@ export const projects = [
     id: 1,
     name: "Fivestone Realty",
     description:
-      "A professional real estate website built on Squarespace for Fivestone Realty. Designed to showcase property listings, build brand credibility, and convert visitors into qualified leads through a clean, trust-focused layout.",
+      "Built a full Squarespace website for Fivestone Realty, a flat-fee home selling agency. The site communicates a clear value proposition, guides visitors through the pricing model, and converts traffic into qualified seller leads — all with a premium, trust-first design.",
     image: "/firestone.png",
     techStack: ["Squarespace", "SEO", "Responsive Design", "Conversion Focused"],
     liveLink: "https://www.fivestonerealty.com",
@@ -12,13 +12,13 @@ export const projects = [
     platform: "Squarespace",
     year: "2025",
     futureImprovements:
-      "Planning to integrate an advanced property search feature and virtual tour functionality.",
+      "SEO-optimised layout across all pages, mobile-first structure, clear CTAs that funnel visitors to the contact and pricing sections, and a clean visual hierarchy that reflects a modern real estate brand.",
   },
   {
     id: 2,
     name: "SERESDC",
     description:
-      "A Squarespace website built for SERESDC, structured to communicate their mission, services, and impact clearly to visitors. Focused on professional presentation, easy navigation, and mobile-first design.",
+      "Designed and built a Squarespace site for SERESDC, a data centre training and certification organisation operating across 50+ countries. The site needed to communicate authority, handle event registrations, and serve a global professional audience.",
     image: "/seresdc.png",
     techStack: ["Squarespace", "SEO", "Mobile Responsive", "Brand Design"],
     liveLink: "https://www.seresdc.com",
@@ -26,14 +26,14 @@ export const projects = [
     platform: "Squarespace",
     year: "2025",
     futureImprovements:
-      "Planning to add a blog and events section to increase organic traffic and community engagement.",
+      "Multi-section layout covering training programmes, certification tracks, and regional events. Clear navigation for a global audience, integrated blog for organic traffic, and a store for direct course enrolment.",
   },
   // ── Wix Projects ─────────────────────────────────────────────
   {
     id: 3,
     name: "Italia Foods",
     description:
-      "A Wix website developed for Italia Foods, designed to highlight their products, brand story, and drive customer engagement. Built with SEO optimisation, fast load performance, and a clean layout that reflects the brand's premium positioning.",
+      "Created a Wix website for Italia Foods, an authentic Italian food brand. The goal was to elevate their online presence, showcase their product range, and build the kind of premium brand feel that turns first-time visitors into loyal customers.",
     image: "/italiafoods.png",
     techStack: ["Wix", "SEO", "E-Commerce", "Responsive Design"],
     liveLink: "https://www.italiafoods.com",
@@ -41,13 +41,13 @@ export const projects = [
     platform: "Wix",
     year: "2025",
     futureImprovements:
-      "Planning to expand the online store with a full product catalogue and integrated checkout experience.",
+      "Full product catalogue with category filtering, SEO-optimised product pages, an integrated Wix store checkout, and a brand story section that communicates the authentic Italian quality behind every product.",
   },
   {
     id: 4,
     name: "Inspire Me Korea",
     description:
-      "A vibrant Wix website built for Inspire Me Korea, a travel and lifestyle brand. Designed to inspire visitors, showcase curated Korean experiences, and convert interest into bookings through a visually engaging, high-converting layout.",
+      "Built a vibrant Wix website for Inspire Me Korea, a travel and lifestyle brand focused on curated Korean experiences. The site needed to inspire at first glance, build credibility for tour packages, and make it easy for visitors to book or enquire.",
     image: "/inspiremekorea.png",
     techStack: ["Wix", "SEO", "Booking Integration", "Mobile Responsive"],
     liveLink: "https://www.inspiremekorea.com",
@@ -55,46 +55,46 @@ export const projects = [
     platform: "Wix",
     year: "2025",
     futureImprovements:
-      "Planning to add a tour booking system and travel blog to increase organic reach and conversion.",
+      "Visually engaging hero sections, curated destination showcases, a Wix Bookings integration for tour enquiries, and SEO-structured travel guides that drive organic discovery from search.",
   },
   // ── Custom Coded Projects ─────────────────────────────────────
   {
     id: 5,
     name: "Care.xyz",
     description:
-      "A real-world care service booking platform that connects families with verified caregivers. Users can book in-home services for children, elderly individuals, and general home care, manage bookings, and track service history with an emphasis on trust, safety, and compassion.",
+      "A real-world care service booking platform that connects families with verified caregivers. Users can book in-home services for children, elderly individuals, and general home care, manage bookings, and track service history — built with trust, safety, and compassion at the core.",
     image:
-      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1766650849/Screenshot_2025-12-25_142016_be74ic.png",
+      "https://res.cloudinary.com/do3iu9q7d/image/upload/w_800,f_auto,q_auto/v1766650849/Screenshot_2025-12-25_142016_be74ic.png",
     techStack: ["Next.js", "NextAuth.js", "MongoDB", "Tailwind CSS", "GSAP"],
     liveLink: "https://carexyz-ten.vercel.app/",
     githubLink: "https://github.com/Pritom678/Care.xyz",
     platform: "Custom",
     year: "2025",
     futureImprovements:
-      "Adding animations using GSAP and implementing role-based integration for enhanced user experiences.",
+      "Role-based dashboards for caregivers and families, GSAP-powered page transitions, in-app messaging, and a review system to build caregiver trust profiles.",
   },
   {
     id: 6,
     name: "LoanLink",
     description:
-      "A full-stack MERN application that streamlines loan applications, approvals, repayments, and administrative operations with specialized dashboards for borrowers, managers, and admins.",
+      "A full-stack MERN application that streamlines loan applications, approvals, repayments, and administrative operations. Features specialised dashboards for borrowers, managers, and admins — each with role-appropriate controls and data visibility.",
     image:
-      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1771430527/Screenshot_2026-01-13_140200_oncbzt.png",
+      "https://res.cloudinary.com/do3iu9q7d/image/upload/w_800,f_auto,q_auto/v1771430527/Screenshot_2026-01-13_140200_oncbzt.png",
     techStack: ["React", "Node.js", "Express.js", "MongoDB", "TanStack Query"],
     liveLink: "https://loanlinkph.netlify.app/",
     githubLink: "https://github.com/Pritom678/loan-link",
     platform: "Custom",
     year: "2026",
     futureImprovements:
-      "Planning to implement a comprehensive payment system for seamless loan repayments.",
+      "Stripe payment integration for repayments, automated email reminders, exportable repayment reports, and an analytics dashboard for admin users.",
   },
   {
     id: 7,
     name: "AudioPulse",
     description:
-      "A production-ready, full-stack e-commerce platform engineered with scalability and performance at its core. Built using TypeScript across the entire stack, this project reflects a commitment to writing clean, maintainable, and strongly typed code.",
+      "A production-ready, full-stack e-commerce platform for audio equipment. Built with TypeScript across the entire stack for type safety and maintainability. Features secure authentication, a dynamic cart, admin management, and GSAP-powered animations throughout.",
     image:
-      "https://res.cloudinary.com/do3iu9q7d/image/upload/v1771430923/Screenshot_2026-02-18_220823_tlc6df.png",
+      "https://res.cloudinary.com/do3iu9q7d/image/upload/w_800,f_auto,q_auto/v1771430923/Screenshot_2026-02-18_220823_tlc6df.png",
     techStack: [
       "React",
       "Next.js",
@@ -109,6 +109,6 @@ export const projects = [
     platform: "Custom",
     year: "2026",
     futureImprovements:
-      "Planning to implement a real-world payment method for seamless transactions.",
+      "Stripe checkout integration, inventory management for admins, product reviews, and a wishlist feature for returning customers.",
   },
 ];

@@ -3,11 +3,8 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "../icons/BrandIcons.jsx";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ProjectModal from "./ProjectModel.jsx";
+import ProjectModal from "./ProjectModal.jsx";
 import { projects } from "../data/projects.js";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);

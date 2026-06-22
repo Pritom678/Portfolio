@@ -1,16 +1,13 @@
-import { Code2, Coffee, Gamepad2, Music } from "lucide-react";
+import { Layout, Monitor, TrendingUp, CheckCircle } from "lucide-react";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const highlights = [
-  { icon: Code2, label: "Custom Code", description: "React, HTML & JS sites built for performance and conversion" },
-  { icon: Coffee, label: "Wix Expert", description: "Professional Wix builds with SEO, speed, and clean structure" },
-  { icon: Gamepad2, label: "Squarespace", description: "Polished Squarespace sites for brands that value design" },
-  { icon: Music, label: "Results-Driven", description: "Every site built to attract clients and grow your business" },
+  { icon: Layout, label: "Custom Code", description: "React, HTML & JS sites built for performance and conversion" },
+  { icon: Monitor, label: "Wix Expert", description: "Professional Wix builds with SEO, speed, and clean structure" },
+  { icon: TrendingUp, label: "Squarespace", description: "Polished Squarespace sites for brands that value design" },
+  { icon: CheckCircle, label: "Results-Driven", description: "Every site built to attract clients and grow your business" },
 ];
 
 const stats = [
